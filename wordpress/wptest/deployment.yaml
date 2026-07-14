@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wp-wptest
+  namespace: wordpress
+  labels:
+    wordpress-site: wptest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      wordpress-site: wptest
+  template:
+    metadata:
+      labels:
+        wordpress-site: wptest
+    spec:
+      containers:
+        - name: wordpress-core
+          image: ghcr.io/ocf/ocf-wordpress-core:latest
+          volumeMounts:
+          - mountPath: /tmp
+            name: tmp
+          - mountPath: /share/wordpress/wp-content/uploads
+            name: uploads
+            subPath: wp-test
+          ports:
+          - containerPort: 8080
+          envFrom:
+          - secretRef:
+              name: wp-wptest-secret
+      volumes:
+      - name: uploads
+        persistentVolumeClaim:
+          claimName: uploads
+      - name: tmp
+        emptyDir: 
+          sizeLimit: 500Mi
+
