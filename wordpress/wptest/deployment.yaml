@@ -25,7 +25,7 @@ spec:
             name: uploads
             subPath: wp-test
           ports:
-          - containerPort: 8080
+          - containerPort: 443
           envFrom:
           - secretRef:
               name: wp-wptest-secret
