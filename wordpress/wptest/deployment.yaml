@@ -29,6 +29,8 @@ spec:
           envFrom:
           - secretRef:
               name: wp-wptest-secret
+      securityContext:
+        fsGroup: 65534
       volumes:
       - name: uploads
         persistentVolumeClaim:
