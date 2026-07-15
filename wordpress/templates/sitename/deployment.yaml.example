@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wp-$sitename
+  namespace: wordpress
+  labels:
+    wordpress-site: $sitename
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      wordpress-site: $sitename
+  template:
+    metadata:
+      labels:
+        wordpress-site: $sitename
+    spec:
+      containers:
+        - name: wordpress-core
+          image: ghcr.io/ocf/ocf-wordpress-core:latest
+          volumeMounts:
+          - mountPath: /tmp
+            name: tmp
+          - mountPath: /share/wordpress/wp-content/uploads
+            name: uploads
+            subPath: wp-test
+          ports:
+          - containerPort: 443
+          envFrom:
+          - secretRef:
+              name: wp-$sitename-secret
+      securityContext:
+        fsGroup: 65534
+      volumes:
+      - name: uploads
+        persistentVolumeClaim:
+          claimName: uploads
+      - name: tmp
+        emptyDir: 
+          sizeLimit: 500Mi
+

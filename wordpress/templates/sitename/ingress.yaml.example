@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    ingress.kubernetes.io/force-ssl-redirect: 'true'
+    io.cilium/websocket: enabled
+    kubernetes.io/tls-acme: 'true'
+    projectcontour.io/websocket-routes: /
+  name: wp-$sitename
+  namespace: wordpress
+spec:
+  ingressClassName: contour
+  rules:
+  - host: $sitename.wp.ocfhosted.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: wp-$sitename
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - $sitename.wp.ocfhosted.com
+    secretName: wp-$sitename-tls
