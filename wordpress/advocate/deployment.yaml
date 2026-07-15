@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wp-advocate
+  namespace: wordpress
+  labels:
+    wordpress-site: advocate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      wordpress-site: advocate
+  template:
+    metadata:
+      labels:
+        wordpress-site: advocate
+    spec:
+      containers:
+        - name: wordpress-core
+          image: ghcr.io/ocf/ocf-wordpress-core:9fipgrfw9k905q05kphy4a99kbsd77z9
+          volumeMounts:
+          - mountPath: /tmp
+            name: tmp
+          - mountPath: /uploads
+            name: uploads
+            subPath: advocate
+          - mountPath: /content
+            name: content
+            subPath: advocate
+          ports:
+          - containerPort: 443
+          envFrom:
+          - secretRef:
+              name: wp-advocate-secret
+      securityContext:
+        fsGroup: 65534
+      volumes:
+      - name: uploads
+        persistentVolumeClaim:
+          claimName: uploads
+      - name: content
+        persistentVolumeClaim:
+          claimName: content
+      - name: tmp
+        emptyDir: 
+          sizeLimit: 500Mi
+

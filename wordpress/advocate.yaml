@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wp-advocate
+  namespace: argocd
+spec:
+  destination:
+    namespace: wordpress
+    server: https://kubernetes.default.svc
+  project: imprint
+  source:
+    repoURL: https://github.com/ocf/imprint-sites.git
+    path: wordpress/advocate
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
