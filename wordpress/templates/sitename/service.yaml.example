@@ -8,5 +8,5 @@ spec:
   - port: 80
     targetPort: 443
   selector:
-    wordpress-site: $sitename
+    ocf.berkeley.edu/wordpress: $sitename
 

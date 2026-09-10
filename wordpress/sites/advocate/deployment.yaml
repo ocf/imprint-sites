@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wp-wptest
+  name: wp-advocate
   namespace: wordpress
   labels:
-    wordpress-site: wptest
+    ocf.berkeley.edu/wordpress: advocate
 spec:
   replicas: 1
   selector:
     matchLabels:
-      wordpress-site: wptest
+      ocf.berkeley.edu/wordpress: advocate
   template:
     metadata:
       labels:
-        wordpress-site: wptest
+        ocf.berkeley.edu/wordpress: advocate
     spec:
       containers:
         - name: wordpress-core
@@ -28,7 +28,7 @@ spec:
           - containerPort: 443
           envFrom:
           - secretRef:
-              name: wp-wptest-secret
+              name: wp-advocate-secret
       securityContext:
         fsGroup: 65534
       volumes:

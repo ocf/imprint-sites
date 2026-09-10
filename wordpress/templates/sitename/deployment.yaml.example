@@ -4,16 +4,16 @@ metadata:
   name: wp-$sitename
   namespace: wordpress
   labels:
-    wordpress-site: $sitename
+    ocf.berkeley.edu/wordpress: $sitename
 spec:
   replicas: 1
   selector:
     matchLabels:
-      wordpress-site: $sitename
+      ocf.berkeley.edu/wordpress: $sitename
   template:
     metadata:
       labels:
-        wordpress-site: $sitename
+        ocf.berkeley.edu/wordpress: $sitename
     spec:
       containers:
         - name: wordpress-core
