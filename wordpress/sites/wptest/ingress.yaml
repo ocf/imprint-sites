@@ -4,7 +4,6 @@ metadata:
   name: wp-wptest
   namespace: wordpress
 spec:
-  ingressClassName: contour
   rules:
   - host: wptest.wp.ocfhosted.com
     http:
