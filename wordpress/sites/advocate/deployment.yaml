@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: wordpress-core
-          image: ghcr.io/ocf/ocf-wordpress-core:1q0cdi6la7s5zc06j27mk6zprmvcxvpi #TODO make latest (w/automation)
+          image: ghcr.io/ocf/ocf-wordpress-core:4080r3mdirini2n8dd2yygcqb6rnv75s #TODO make latest (w/automation)
           volumeMounts:
           - mountPath: /tmp
             name: tmp
