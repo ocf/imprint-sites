@@ -15,6 +15,26 @@ spec:
               number: 80
         path: /
         pathType: Prefix
+  - host: advocate.berkeley.edu
+    http:
+      paths:
+      - backend:
+          service:
+            name: wp-advocate
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: advocate.studentorg.berkeley.edu
+    http:
+      paths:
+      - backend:
+          service:
+            name: wp-advocate
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
   tls:
   - hosts:
     - advocate.wp.ocfhosted.com
