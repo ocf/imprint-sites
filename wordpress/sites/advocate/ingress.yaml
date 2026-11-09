@@ -18,4 +18,6 @@ spec:
   tls:
   - hosts:
     - advocate.wp.ocfhosted.com
+    - advocate.berkeley.edu
+    - advocate.studentorg.berkeley.edu
     secretName: wp-advocate-tls
